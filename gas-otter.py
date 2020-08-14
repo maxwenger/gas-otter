@@ -21,8 +21,20 @@ class Contianer:
         self.currentPressure = ((self.currentPressure * self.volume) + (sourceContainer.getCurrentPressure() * sourceContainer.getVolume())) / (self.volume + sourceContainer.getVolume())
         sourceContainer.currentPressure = self.currentPressure
 
-print("Gas otter v0.0.1")
+print('''
+         .-"""-.
+        /      o\\
+       |    o   0).-.
+       |       .-;(_/     .-.
+        \     /  /)).---._|  `\   ,
+         '.  '  /((       `'-./ _/|
+           \  .'  )        .-.;`  /
+            '.             |  `\-'
+              '._        -'    /
+        jgs      ``""--`------`
+''')
 
+print("Gas otter v0.0.1")
 def getFloatInput(message, minValue, maxValue):
     while True:
         try:
