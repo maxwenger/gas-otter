@@ -1,3 +1,5 @@
+import sys
+
 class Contianer:
     def __init__(self, ratedCapacity, ratedPressure, currentPressure):
         self.ratedCapacity = ratedCapacity
@@ -14,28 +16,67 @@ class Contianer:
         return self.volume
 
     def fillUntilEqualPressure(self, sourceContainer):
+        if(self.currentPressure >= sourceContainer.currentPressure):
+            raise Exception("Source container must have a higher pressure than the target container.")
         self.currentPressure = ((self.currentPressure * self.volume) + (sourceContainer.getCurrentPressure() * sourceContainer.getVolume())) / (self.volume + sourceContainer.getVolume())
         sourceContainer.currentPressure = self.currentPressure
 
 print("Gas otter v0.0.1")
 
-capacity1 = float(input("Contianer 1 capacity (cuft): "))
-ratedPressure1 = float(input("Contianer 1 rated pressure (psi): "))
-pressure1 = float(input("Contianer 1 current pressure (psi): "))
+def getFloatInput(message, minValue, maxValue):
+    while True:
+        try:
+            userInput = float(input(message))
+        except ValueError:
+            print("Please input numbers only.")
+            continue
 
-capacity2 = float(input("Contianer 2 capacity (cuft): "))
-ratedPressure2 = float(input("Contianer 2 rated pressure (psi): "))
-pressure2 = float(input("Contianer 2 current pressure (psi): "))
+        if userInput < minValue:
+            print("Choose a number greater than " + str(minValue))
+        elif userInput > maxValue:
+            print("Choose a number less than " + str(minValue))
+        else:
+            return userInput
+
+destinationCapacity = getFloatInput("Destination container actual capacity (cuft): ", 0, sys.float_info.max)
+destinationRatedPressure = getFloatInput("Destination container rated pressure (psi): ", 0, sys.float_info.max)
+destinationCurrentPressure = getFloatInput("Destination contianer current pressure (psi): ", 0, sys.float_info.max)
+print()
 
 # Convert capacity in cuft to cuin
 cubicFtToCubicInConversionRatio = 1728
-capacity1 = capacity1 * cubicFtToCubicInConversionRatio
-capacity2 = capacity2 * cubicFtToCubicInConversionRatio
+destinationCapacity = destinationCapacity * cubicFtToCubicInConversionRatio
+destinationContainer = Contianer(destinationCapacity, destinationRatedPressure, destinationCurrentPressure)
 
-container1 = Contianer(capacity1, ratedPressure1, pressure1)
-container2 = Contianer(capacity2, ratedPressure2, pressure2)
+while True:
+    while True: 
+        sourceCapacity = getFloatInput("Source container actual capacity (cuft): ", 0, sys.float_info.max)
+        sourceRatedPressure = getFloatInput("Source container rated pressure (psi): ", 0, sys.float_info.max)
+        sourceCurrentPressure = getFloatInput("Source container current pressure (psi): ", destinationContainer.getCurrentPressure(), sys.float_info.max)
+        print()
+        print("Tank capacity: " + str(sourceCapacity) + " cuft")
+        print("Rated tank presssure: " + str(sourceRatedPressure) + " psi")
+        print("Pressure currently in the tank: " + str(sourceCurrentPressure) + " psi")
+        gasConfirmed = input("Fill the destination container with this gas? [y/N]: ")
+        if gasConfirmed == 'y':
+            print("Gas will be added.")
+            break
+        else:
+            print("Gas not added.")
+    
+    sourceCapacity = sourceCapacity * cubicFtToCubicInConversionRatio
+    sourceContainer = Contianer(sourceCapacity, sourceRatedPressure, sourceCurrentPressure)
+    
+    print()
+    if(destinationContainer.getCurrentPressure() > sourceContainer.getCurrentPressure()):
+        print("The destination container must be at a lower pressure than the source container.")
+    elif(destinationContainer.getCurrentPressure() == sourceContainer.getCurrentPressure()):
+        print("Containers are at the same pressure. No mixing will happen.")
+    else:
+        destinationContainer.fillUntilEqualPressure(sourceContainer)
+        print("Pressure after equalising both containers: " + str(round(destinationContainer.getCurrentPressure())) + " psi")
 
-container1.fillUntilEqualPressure(container2)
-
-print("Current pressure: " + str(round(container1.getCurrentPressure())))
-
+    print()
+    if input("Add another container? [Y/n]: ") == 'n':
+        print("Goodbye.")
+        break
