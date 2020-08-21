@@ -12,6 +12,15 @@ print('''
               '._        -'    /
         jgs      ``""--`------`
 
+        *** WARNING AND DISCLAIMER ***
+        THIS PROGRAM IS SHOULD BE USED FOR TRAINING AND EDUCATIONAL PURPOSES
+        ONLY.
+        Blending gasses is dangerous. Not only can you seriously injure or
+        kill yourself while mixing the gasses, but improper blending can lead
+        to serious injury or death of the diver breathing the gas.
+        Do not rely on this program to generate correct or accurate results.
+        Remember to ALWAYS analyze your gas before diving.
+
         Gas Otter v0.0.1 by Maxwell Wenger (GitHub @maxwenger)
 
 ''')
