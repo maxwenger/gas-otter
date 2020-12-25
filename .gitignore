@@ -116,6 +116,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pythonenv*
 
 # Spyder project settings
 .spyderproject
@@ -137,5 +138,8 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+# profiling data
+.prof
 
 # End of https://www.toptal.com/developers/gitignore/api/python
