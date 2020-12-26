@@ -4,10 +4,16 @@ from user_input import UserInput
 from gas import Gas
 from pressure_calcs import PressureCalcs
 
-while True:
+extended_mode = False
+if input("Enter extended gas info mode [y/N]? ") == 'y':
+    exec(open("gas_info_extended.py").read())
+    extended_mode = True
+
+while not extended_mode:
     print("")
-    f_o2 = UserInput().getFloatInput("Fraction of oxygen (decimal): ", 0.01, 1)
-    f_he = UserInput().getFloatInput("Fraction of helium (decimal): ", 0, (1-f_o2))
+
+    f_o2 = UserInput().getFloatInput("Fraction of oxygen (decimal) [0.21]: ", 0.01, 1, default_value=0.21)
+    f_he = UserInput().getFloatInput("Fraction of helium (decimal) [0]: ", 0, (1-f_o2), default_value=0)
     f_n = 1 - f_o2 - f_he
     
     gas = Gas(f_o2, f_n, f_he)
