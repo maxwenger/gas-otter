@@ -1,0 +1,6 @@
+# Standard acceleration due to the force of gravity on earth
+graviitational_acceleration: 9.80665
+
+# Freshwater at 4C has a density of 1000 kg/m^3
+density_freshwater: 1000
+

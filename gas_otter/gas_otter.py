@@ -30,14 +30,8 @@ while True:
 
         0) Quit Gas Otter
 
-        1) Partial Pressure Nitrox Blender
+        1) Gas info
 
-        2) Cascade simulator - Give an existing container and add different
-            mixes to it and see the pressure and mix after each addition.
-
-        3) Cascade instructions - Give an existig container to mix in and
-            containers you would like to add to the existing container,
-            and get instructions to mix your desired blend.
     ''')
 
     try:
@@ -50,9 +44,7 @@ while True:
         print("Goodbye!")
         break
     if selection == 1:
-        exec(open("partial_pressure_mix_nitrox.py").read())
-    elif selection == 2:
-        exec(open("cascade_mix_simulator.py").read())
+        exec(open("gas_info.py").read())
     else:
         print("Please make a valid selection.")
     

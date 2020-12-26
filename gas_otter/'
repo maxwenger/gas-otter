@@ -1,0 +1,22 @@
+import sys
+from user_input import UserInput
+from gas import Gas
+from pressure_calcs import PressureCalcs
+
+while True:
+    print("")
+    f_o2 = UserInput().getFloatInput("Fraction of oxygen (decimal): ", 0, 1)
+    f_he = UserInput().getFloatInput("Fraction of helium (decimal): ", 0, (1-f_o2))
+    f_n = 1 - f_o2 - f_he
+    
+    gas = Gas(f_o2, f_n, f_he)
+    print("")
+    print("Mix: " + str(gas))
+    print("MOD at Sea Level in Salt Water:")
+    print("\tppo2 of 1.4: " + str(round(gas.get_mod(1.4), 2)) + "m")
+    print("\tppo2 of 1.6: " + str(round(gas.get_mod(1.6), 2)) + "m")
+    print("")
+   
+    if input("Would you like to enter another gas [Y/n]? ") == 'n':
+        break
+

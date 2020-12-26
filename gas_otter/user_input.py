@@ -1,5 +1,3 @@
-import math
-
 class UserInput:
     def getFloatInput(self, message, minValue, maxValue):
         while True:
