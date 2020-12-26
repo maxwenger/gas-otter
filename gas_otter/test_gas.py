@@ -36,5 +36,6 @@ class TestGas:
         assert gas.get_mod(surf_pressure=0.8) == pytest.approx(27, 0.1)
         assert gas.get_mod(1.6) == pytest.approx(30, 0.1)
         assert gas.get_mod(1.6, surf_pressure=0.8) == pytest.approx(32, 0.1)
+        assert gas.get_mod(0.18) == 0
 
 

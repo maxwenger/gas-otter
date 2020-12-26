@@ -43,6 +43,13 @@ class Gas:
 
         max_ppo2 = self.pressure_at_ppo2(ppo2)
         max_ppo2 = max_ppo2 - surf_pressure
+
+        # In the case that max_ppo2 is less than zero, there is no 
+        # depth that it would not be allowed to dive this gas.
+        # Ex: min operating depth for air at sea level
+        if max_ppo2 <= 0:
+            return 0
+
         return PressureCalcs.water_pressure_to_depth(max_ppo2, density, gravity)
 
     def __str__(self):

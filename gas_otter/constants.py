@@ -10,6 +10,9 @@ DENSITY_SALTWATER = 1030
 SEA_LEVEL_SURF_PRESSURE_BAR = 1
 ''' Surface pressure in bar at sealevel '''
 
+MIN_PPO2 = 0.18
+''' Min ppo2 for normal diving, measured in bar '''
+
 MAX_PPO2 = 1.4
 ''' Max ppo2 for normal diving, measured in bar '''
 
