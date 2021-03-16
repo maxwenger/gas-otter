@@ -36,33 +36,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <form id="gas-form" action="#">
+                    <form id="gas-form" onsubmit='return false'>
+                        <div class="form-group">
+                            <label for="water-density-radio">Water Type</label>
+                            <br />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="water-density-radio" value="salt" checked>
+                                <label class="form-check-label" for="salt-water-radio">
+                                    Salt Water
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="water-density-radio" value="fresh">
+                                <label class="form-check-label" for="fresh-water-radio">
+                                    Fresh Water
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="inputFo2">Fraction of oxygen</label>
                             <input type="number" step="any" min="0" max="1" value="0.32" class="form-control" aria-describedby="fo2Help" id="inputFo2" placeholder="0.32">
+
                             <small id="fo2Help" class="form-text text-muted">Enter this as a decimal, so Nitrox 32% woudld be 0.32.</small>
                         </div>
-                        <!--
                         <div class="form-group">
-                            <label for="inputAlt">Altitude (ft)</label>
-                            <input type="number" class="form-control" aria-describedby="altHelp" id="inputFo2" placeholder="0">
-                            <small id="alt" class="form-text text-muted">Enter 0 for sea level or if you dont know.</small>
+                            <label for="inputAlt">Surface Barometric Pressure (bar)</label>
+                            <input type="number" step="any" min="0" class="form-control" aria-describedby="altHelp" id="inputSurfPressure" placeholder="1" value="1">
+                            <small id="altHelp" class="form-text text-muted">Default is sea level, which is 1.</small>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Salt Water
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                                Fresh Water
-                            </label>
-                        </div>
-
-                        -->
                         <div class="form-group row">
                             <div class="col-sm-10">
                                 <button onclick="refreshGasInfo()" id="submit-gas-info" type="submit" class="btn btn-primary">Calculate</button>
