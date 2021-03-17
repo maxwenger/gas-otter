@@ -3,7 +3,7 @@ var NITROGEN_DENSITY = 1.25;
 
 function refreshGasInfo() {
     var fo2 = parseFloat(document.getElementById("inputFo2").value);
-    var surfacePressure = parseFloat(document.getElementById("inputSurfPressure").value);
+    var surfacePressure = getSurfPressureInput();
     var pressureDepthConversionFactor = getPressureDepthConversionFactor();
 
     var table = document.getElementById("gas-info-table").getElementsByTagName("tbody")[0];
@@ -11,7 +11,6 @@ function refreshGasInfo() {
     while(table.firstChild) {
         table.removeChild(table.firstChild);
     }
-    
 
     var i;
     for(i = 0; i <= 300; i += 10) {
@@ -25,6 +24,62 @@ function refreshGasInfo() {
         addRow(table, depth, pressure, ppo2, ppn2, gasDensity);
     }
 }
+
+function getSurfPressureInput() {
+    if(isAltitudeDive()) {
+        var ele = document.getElementById("inputSurfPressure");
+        return parseFloat(ele.value);
+    } else {
+        return 1;
+    }
+}
+
+function isAltitudeDive() {
+    var ele = document.getElementById("inputSurfPressure");
+    return !ele.disabled;
+}
+
+function toggleAlt() {
+    if(document.getElementById("is-alt").checked) {
+        document.getElementById("inputSurfPressure").disabled = false;
+        document.getElementById("input-elevation").disabled = false;
+        document.getElementById("alt-warning").classList.remove("collapse");
+    } else {
+        document.getElementById("inputSurfPressure").disabled = true;
+        document.getElementById("input-elevation").disabled = true;
+        document.getElementById("alt-warning").classList.add("collapse");
+    }
+}
+
+// Pa = (1 atm) * exp(5.255876 * log(1 – (C * A)))
+function updateAltPressure() {
+    var c = 0.0000068756;
+    var alt = document.getElementById("input-elevation").value;
+
+    var pressure = c * alt;
+    pressure = 1 - pressure;
+    pressure = Math.log(pressure);
+    pressure *= 5.255876;
+    pressure = Math.exp(pressure);
+
+    pressure = pressure.toFixed(4);
+    document.getElementById("inputSurfPressure").value = pressure;
+}
+
+// alt = - ((e^(ln(pressure)/5.2) - 1) / c)
+function updateAltElevation() {
+    var c = 0.0000068756;
+    var pressure = document.getElementById("inputSurfPressure").value;
+
+    var alt = Math.log(pressure) / 5.255876;
+    alt = Math.exp(alt) - 1;
+    alt /= c;
+    alt *= -1;
+
+    alt = alt.toFixed(0);
+    document.getElementById("input-elevation").value = alt;
+}
+
 
 // Will return the depth required to equal one atmosphere of pressure given
 // the density of water. So, for fresh water, it will return 34 ft.
