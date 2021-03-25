@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+
+        <title>Gas Otter</title>
+    </head>
+    <body>
+        <h1>Gas Otter</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.html">Gas Analyser</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Tank Equalizer</a>
+            </li>
+        </ul>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h4>Tank 1</h4>
+                    <div class="form-group">
+                        <label for="input-fo2-1">Fraction of oxygen</label>
+                        <input type="number" step="any" min="0" max="1" value="0.21" class="form-control" aria-describedby="fo2Help" id="input-fo2-1" placeholder="0.21">
+                        <small id="fo2Help" class="form-text text-muted">Enter this as a decimal, so Nitrox 32% woudld be 0.32.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-current-pressure-1">Current Pressure (PSI)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="current-pressure-help" id="input-current-pressure-1" placeholder="3000">
+                        <small id="pressure-help" class="form-text text-muted">The actual pressure inside of the tank.</small>
+                    </div>
+ 
+ <div class="form-group">
+                        <label for="input-pressure-1">Max Pressure (PSI)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="pressure-help" id="input-pressure-1" placeholder="3000">
+                        <small id="pressure-help" class="form-text text-muted">This is the rated pressure of the tank in PSI</small>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="input-volume-1">Max Capacity (cuft)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="volume-help" id="input-volume-1" placeholder="77.4">
+                        <small id="volume-help" class="form-text text-muted">This is the actual volume of gas it stores at its rated pressure. This is not necessarily the colloquial value (e.g. some AL80s only have 77.4 cuft of gas).</small>
+                    </div>
+
+                   <hr />
+
+                    <h4>Tank 2</h4>
+                    <div class="form-group">
+                        <label for="input-fo2-2">Fraction of oxygen</label>
+                        <input type="number" step="any" min="0" max="1" class="form-control" value="1.00" aria-describedby="fo2Help" id="input-fo2-2" placeholder="1.00">
+                        <small id="fo2Help" class="form-text text-muted">Enter this as a decimal, so Nitrox 32% woudld be 0.32.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-current-pressure-2">Current Pressure (PSI)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="current-pressure-help" id="input-current-pressure-2" placeholder="3000">
+                        <small id="pressure-help" class="form-text text-muted">The actual pressure inside of the tank.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-pressure-2">Max Pressure (PSI)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="pressure-help" id="input-pressure-2" placeholder="3000">
+                        <small id="pressure-help" class="form-text text-muted">This is the rated pressure of the tank in PSI</small>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="input-volume-2">Max Capacity (cuft)</label>
+                        <input type="number" step="any" min="0" class="form-control" aria-describedby="volume-help" id="input-volume-2" placeholder="77.4">
+                        <small id="volume-help" class="form-text text-muted">This is the actual volume of gas it stores at its rated pressure. This is not necessarily the colloquial value (e.g. some AL80s only have 77.4 cuft of gas).</small>
+                    </div>
+                    <hr />
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button onclick="calculate()" type="submit" class="btn btn-primary">Calculate</button>
+                            </div>
+                        </div>
+ 
+                </div>
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">New Tank 1</h5>
+                            <p class="card-text"><b>New Fo2: </b><span id="new-fo2-1">0</span></p>
+                            <p class="card-text"><b>New Pressure: </b><span id="new-pressure-1">0</span> psi</p>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">New Tank 2</h5>
+                            <p class="card-text"><b>New Fo2: </b><span id="new-fo2-2">0</span></p>
+                            <p class="card-text"><b>New Pressure: </b><span id="new-pressure-2">0</span> psi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">WARNING AND DISCLAIMER</h4> <p>THIS
+            PROGRAM SHOULD ONLY BE USED FOR TRAINING AND EDUCATIONAL
+            PURPOSES ONLY.</p>
+            
+            <p>Blending gasses is dangerous. Not only can you seriously injure
+            or kill yourself while mixing the gasses, but improper blending can
+            lead to serious injury or death of the diver breathing the gas.
+            Remember to ALWAYS analyze your gas before diving, do your own
+            calculations, and plan and execute your dives in accordance with
+            your training.</p>
+
+            <p>Do not rely on this program to generate correct or accurate
+            results.</p>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <script src="tank-equalizer.js"></script>
+    </body>
+</html>
+
